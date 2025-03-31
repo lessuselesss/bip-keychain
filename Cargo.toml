@@ -1,0 +1,23 @@
+[package]
+name = "bip_keychain_wasm"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wasm-bindgen = "0.2"
+bip85 = "0.6" # Or latest compatible version
+# Ensure bip85's bitcoin dependency is compatible or specified
+bitcoin = { version = "0.29", features = ["use-serde"] } # Match bip85's version if needed
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_jcs = "0.1" # For JSON Canonicalization Scheme (RFC 8785)
+hmac = "0.12"
+sha2 = "0.10"
+hex = "0.4" # For potential nonce handling or debugging
+
+[profile.release]
+lto = true
+opt-level = 's' # Optimize for size
